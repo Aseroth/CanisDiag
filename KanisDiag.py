@@ -1,3 +1,4 @@
+
 import PySimpleGUI as sg
 import datetime
 from datetime import datetime
@@ -7,6 +8,7 @@ from reportlab.lib.pagesizes import A4
 import Kanis_canvas
 from Kanis_canvas import diag_canvas
 import os
+import subprocess
 
 rel_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -27,49 +29,67 @@ cur_date = datetime.now()
 def main():
 
     animal_type = ['Pies', 'Kot']
-    kreatynina_kot_norma = [1.0,2.0]
-    mocznik_kot_norma = [25.0,70.0]
-    fosfor_kot_norma = [3.0,6.8] #mg/dl
-    alat_kot_norma =[20.0,107.0] #U/l
-    aspat_kot_norma = [6.0,44.0] #U/l
-    białko_kot_norma = [6.0,8.0] #g/dl
-    bilirubina_kot_norma = [0.5,1.2] #mg/dl
-    alp_kot_norma = [23.0,107.0] #U/l
+    #normy PSA
+    ast_kot_norma = [6.0,44.0]          #U/l
+    alt_kot_norma = [20.0,107.0]        #U/l
+    alp_kot_norma = [23.0,107.0]        #U/l
+    bilirubina_kot_norma = [0.5,1.2]    #mg/dl
+    ggt_kot_norma = [0.0,10.0]          #U/l
+    ldh_kot_norma = [161.0,1051.0]      #U/l
+    cholesterol_kot_norma = [77.4,201.2] #mg/dl
+    triglicerydy_kot_norma = [17.7,159.4] ##mg/dl
+    kw_zolt_kot_norma = [0.0,25.0] #umol/l
+    białko_kot_norma = [60.0,80.0] #g/l
+    albuminy_kot_norma = [27.0,39.0] #g/l
     glukoza_kot_norma = [100.0,130.0]#mg/dl
+    fruktozamina_kot_norma = [0.0,400.0] #umol/l
+    mocznik_kot_norma = [25.0,70.0]#mg/dl
+    kreatynina_kot_norma = [1.0,1.8]#mg/dl
+    kinaza_kot_norma = [49.0,688.0] #U/l
     amylaza_kot_norma = [433.0,1248.0] #U/l
-    lipaza_kot_norma = [0.0,250.0] #U/l
-    sod_kot_norma = [143.6,156.5] #mg/dl
+    lipaza_kot_norma = [157.0,1715.0] #U/l
+    wapn_kot_norma = [8.0,11.1] #mg/dl
+    fosfor_kot_norma = [3.0,6.8]        #mg/dl
+    magnez_kot_norma =[2.1,3.2] #mg/dl
+    zelazo_kot_norma =[68.0,215.0] #ug/dl
     potas_kot_norma = [4.1,5.6] #mg/dl
-        #morfologia
-    wbc_kot_norma = [6.0,19.0] #tys/ul
-    rbc_kot_norma = [6.6,10.0] #mln/ul
-    hgb_kot_norma = [6.2,9.3] #mmol/l
-    hct_kot_norma = [30.0,45.0] #%
-    plt_kot_norma = [300.0,800.0] #tys/ul
+    sod_kot_norma = [143.6,156.5] #mg/dl
+    chlorki_kot_norma = [360.0,420.0] #mg/dl
 
 
 
         #normy badań psa
         # biochemia krwi
-    kreatynina_psa_norma = [0.9,1.7] #mg/dl
-    mocznik_psa_norma = [20.0,50.0] #mg/dl
-    fosfor_psa_norma = [2.5,6.3] #mg/dl
-    alat_psa_norma =[30.0,60.0] #U/l
-    aspat_psa_norma = [1.0,45.0] #U/l
-    białko_psa_norma = [5.5,7.5] #g/dl
-    bilirubina_psa_norma = [0.3,0.9] #mg/dl
-    alp_psa_norma = [20.0,155.0] #U/l
+    ast_psa_norma = [1.0,45.0]          #U/l
+    alt_psa_norma = [30.0,60.0]        #U/l
+    alp_psa_norma = [20.0,155.0]        #U/l
+    bilirubina_psa_norma = [0.3,0.9]    #mg/dl
+    ggt_psa_norma = [5.0,25.0]          #U/l
+    ldh_psa_norma = [105.0,1683.0]      #U/l
+    cholesterol_psa_norma = [127.7,360.0] #mg/dl
+    triglicerydy_psa_norma = [17.7,115.1] ##mg/dl
+    kw_zolt_psa_norma = [0.0,30.0] #umol/l
+    białko_psa_norma = [50.0,75.0] #g/l
+    albuminy_psa_norma = [33.0,56.0] #g/l
     glukoza_psa_norma = [70.0,120.0]#mg/dl
+    fruktozamina_psa_norma = [0.0,320.0] #umol/l
+    mocznik_psa_norma = [20.0,50.0]#mg/dl
+    kreatynina_psa_norma = [0.9,1.7]#mg/dl
+    kinaza_psa_norma = [25.0,467.0] #U/l
     amylaza_psa_norma = [300.0,1850.0] #U/l
     lipaza_psa_norma = [268.0,1769.0] #U/l
+    wapn_psa_norma = [8.4,11.5] #mg/dl
+    fosfor_psa_norma = [2.5,6.3]        #mg/dl
+    magnez_psa_norma =[1.7,2.9] #mg/dl
+    zelazo_psa_norma =[94.0,122.0] #ug/dl
+    potas_psa_norma = [4.1,5.4] #mg/dl
     sod_psa_norma = [320.0,360.0] #mg/dl
-    potas_psa_norma = [16.0,21.0] #mg/dl
-        #morfologia
-    wbc_psa_norma = [6.0,16.5] #tys/ul
-    rbc_psa_norma = [5.5,8.5] #mln/ul
-    hgb_psa_norma = [12.0,18.0] #mmol/l
-    hct_psa_norma = [37.0,55.0] #%
-    plt_psa_norma = [200.0,500.0] #tys/ul
+    chlorki_psa_norma = [350.0,410.0] #mg/dl
+
+    badania_odw = ['AST', 'ALT', 'ALP', 'BILIRUBINA','GGT','LDH','CHOLESTEROL','TRIGLICERYDY','KW-ZOLT','BIALKO','ALBUMINY','GLUKOZA','FRUKTOZAMINA','MOCZNIK','KREATYNINA','KINAZA','AMYLAZA','LIPAZA','WAPN','FOSFOR','MAGNEZ','ZELAZO','POTAS','SOD','MAGNEZ','CHLORKI']
+    badania = []
+    for x in range(len(badania_odw)):
+        badania.append(0)
 
     layout = [
         [sg.Text('Numer zlecenia', size=(20,1)), sg.Input(key='order-no')],
@@ -79,27 +99,32 @@ def main():
         [sg.HorizontalSeparator()],
         [sg.Text('Wynik badań diagnostycznych', font=('Helvetica',20))],
         [sg.Text('Badania biochemiczne krwi', font=('Helvetica',12),size=(25,1))],
-        [sg.Text('\t\t\t\t\tNorma')],
-        [sg.Text('Kreatynina',font=('Helvetica',12), size=(10,1)), sg.Input(key='kreatynina-wynik', size=(10,1)),sg.Text('mg/dl\t'), sg.Text(key='normy-kreatynina', size=(10,1))],
-        [sg.Text('Mocznik',font=('Helvetica',12), size=(10,1)),sg.Input(key='mocznik-wynik', size=(10,1)),sg.Text('mg/dl\t'), sg.Text(key='normy-mocznik')],
-        [sg.Text('Fosfor',font=('Helvetica',12), size=(10,1)),sg.Input(key='fosfor-wynik', size=(10,1)),sg.Text('mg/dl\t'), sg.Text(key='normy-fosfor')],
-        [sg.Text('ALAT',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='alat-wynik', size=(10,1)), sg.Text('U/l\t'), sg.Text(key='alat-norma')],
-        [sg.Text('ASPAT',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='aspat-wynik', size=(10,1)), sg.Text('U/l\t'), sg.Text(key='aspat-norma')],
-        [sg.Text('Białko',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='bialko-wynik', size=(10,1)), sg.Text('g/dl\t'), sg.Text(key='bialko-norma')],
-        [sg.Text('Bilirubina',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='bilirubina-wynik', size=(10,1)), sg.Text('mg/dl\t'), sg.Text(key='bilirubina-norma')],
-        [sg.Text('ALP',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='alp-wynik', size=(10,1)), sg.Text('U/l\t'), sg.Text(key='alp-norma')],
-        [sg.Text('Glukoza',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='glukoza-wynik', size=(10,1)), sg.Text('mg/dl\t'), sg.Text(key='glukoza-norma')],
-        [sg.Text('Amylaza',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='amylaza-wynik', size=(10,1)), sg.Text('U/l\t'), sg.Text(key='amylaza-norma')],
-        [sg.Text('Lipaza',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='lipaza-wynik', size=(10,1)), sg.Text('U/l\t'), sg.Text(key='lipaza-norma')],
-        [sg.Text('Sód',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='sod-wynik', size=(10,1)), sg.Text('mg/dl\t'), sg.Text(key='sod-norma')],
-        [sg.Text('Potas',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='potas-wynik', size=(10,1)), sg.Text('mg/dl\t'), sg.Text(key='potas-norma')],
-        [sg.HorizontalSeparator()],
-        [sg.Text('Morfologia krwi', font=('Helvetica',12),size=(25,1))],
-        [sg.Text('WBC',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='wbc-wynik', size=(10,1)), sg.Text('tys./µl\t'), sg.Text(key='wbc-norma')],
-        [sg.Text('RBC',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='rbc-wynik', size=(10,1)), sg.Text('mln/µl\t'), sg.Text(key='rbc-norma')],
-        [sg.Text('HGB',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='hgb-wynik', size=(10,1)), sg.Text('g/dl\t'), sg.Text(key='hgb-norma')],
-        [sg.Text('HCT',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='hct-wynik', size=(10,1)), sg.Text('%\t'), sg.Text(key='hct-norma')],
-        [sg.Text('PLT',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='plt-wynik', size=(10,1)), sg.Text('tys./µl\t'), sg.Text(key='plt-norma')],
+        [sg.Text('\t\t\t\t\tNorma\t\t\t\t\t\t\tNorma')],
+        [sg.Text('AST',font=('Helvetica',12), size=(10,1)), sg.Input(key='ast-wynik', size=(10,1)),sg.Text('U/l\t'), sg.Text(key='ast-norma', size=(15,1)),                                  sg.Text('ALT',font=('Helvetica',12), size=(10,1)),sg.Input(key='alt-wynik', size=(10,1)),sg.Text('U/l\t'), sg.Text(key='alt-norma', size=(15,1))],
+        
+        [sg.Text('ALP',font=('Helvetica',12), size=(10,1)),sg.Input(key='alp-wynik', size=(10,1)),sg.Text('U/l\t'), sg.Text(key='alp-norma', size=(15,1)),                                   sg.Text('Bilirubina',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='bilirubina-wynik', size=(10,1)), sg.Text('mg/dl\t'), sg.Text(key='bilirubina-norma', size=(15,1))],
+        
+        [sg.Text('GGT',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='ggt-wynik', size=(10,1)), sg.Text('U/l\t'), sg.Text(key='ggt-norma', size=(15,1)),                               sg.Text('LDH',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='ldh-wynik', size=(10,1)), sg.Text('U/l\t'), sg.Text(key='ldh-norma', size=(15,1))],
+        
+        [sg.Text('Cholesterol',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='cholesterol-wynik', size=(10,1)), sg.Text('mg/dl\t'), sg.Text(key='cholesterol-norma', size=(15,1)),     sg.Text('Triglicerydy',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='triglicerydy-wynik', size=(10,1)), sg.Text('mg/dl\t'), sg.Text(key='triglicerydy-norma', size=(15,1))],
+        
+        [sg.Text('Kwasy żół.',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='kw-zolt-wynik', size=(10,1)), sg.Text('umol/l\t'), sg.Text(key='kw-zolt-norma', size=(15,1)),             sg.Text('Białko całk.',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='bialko-wynik', size=(10,1)), sg.Text('g/l\t'), sg.Text(key='bialko-norma', size=(15,1))],
+        
+        [sg.Text('Albuminy',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='albuminy-wynik', size=(10,1)), sg.Text('g/l\t'), sg.Text(key='albuminy-norma', size=(15,1)),                sg.Text('Glukoza',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='glukoza-wynik', size=(10,1)), sg.Text('mg/dl\t'), sg.Text(key='glukoza-norma', size=(15,1))],
+        
+        [sg.Text('Fruktozamina',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='fruktozamina-wynik', size=(10,1)), sg.Text('umol/l\t'), sg.Text(key='fruktozamina-norma', size=(15,1)), sg.Text('Mocznik',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='mocznik-wynik', size=(10,1)), sg.Text('mg/dl\t'), sg.Text(key='mocznik-norma', size=(15,1))],
+       
+        [sg.Text('Kreatynina',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='kreatynina-wynik', size=(10,1)), sg.Text('mg/dl\t'), sg.Text(key='kreatynina-norma', size=(15,1)),        sg.Text('Kinaza',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='kinaza-wynik', size=(10,1)), sg.Text('U/l\t'), sg.Text(key='kinaza-norma', size=(15,1))],
+        
+        [sg.Text('Amylaza',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='amylaza-wynik', size=(10,1)), sg.Text('U/l\t'), sg.Text(key='amylaza-norma', size=(15,1)),                   sg.Text('Lipaza',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='lipaza-wynik', size=(10,1)), sg.Text('U/l\t'), sg.Text(key='lipaza-norma', size=(15,1))],
+        
+        [sg.Text('Wapń',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='wapn-wynik', size=(10,1)), sg.Text('mg/dl\t'), sg.Text(key='wapn-norma', size=(15,1)),                          sg.Text('Fosfor',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='fosfor-wynik', size=(10,1)), sg.Text('mg/dl\t'), sg.Text(key='fosfor-norma', size=(15,1))],
+        
+        [sg.Text('Magnez',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='magnez-wynik', size=(10,1)), sg.Text('mg/dl\t'), sg.Text(key='magnez-norma', size=(15,1)),                    sg.Text('Żelazo',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='zelazo-wynik', size=(10,1)), sg.Text('ug/dl\t'), sg.Text(key='zelazo-norma', size=(15,1))],
+        
+        [sg.Text('Potas',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='potas-wynik', size=(10,1)), sg.Text('mg/dl\t'), sg.Text(key='potas-norma', size=(15,1)),                       sg.Text('Sód',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='sod-wynik', size=(10,1)), sg.Text('mg/dl\t'), sg.Text(key='sod-norma', size=(15,1))],
+        
+        [sg.Text('Chlorki',font=('Helvetica', 12), size=(10,1) ), sg.Input(key='chlorki-wynik', size=(10,1)), sg.Text('mg/dl\t'), sg.Text(key='chlorki-norma', size=(15,1))],
         [sg.Text('Uwagi:',font=('Helvetica', 12), size=(10,1)), sg.Input(key='uwagi', size=(50,1))],
         [sg.Button('Do PDF'), sg.Button('Wyczyść')]
 
@@ -113,226 +138,142 @@ def main():
         if event == sg.WIN_CLOSED or event=='Exit':
             break
         if values['animal-type']=='Pies':
-            okno['normy-kreatynina'].update((kreatynina_psa_norma))
-            okno['normy-mocznik'].update((mocznik_psa_norma))
-            okno['normy-fosfor'].update((fosfor_psa_norma))
-            okno['alat-norma'].update((alat_psa_norma))
-            okno['aspat-norma'].update((aspat_psa_norma))
-            okno['bialko-norma'].update((białko_psa_norma))
-            okno['bilirubina-norma'].update((bilirubina_psa_norma))
+            okno['ast-norma'].update((ast_psa_norma))
+            okno['alt-norma'].update((alt_psa_norma))
             okno['alp-norma'].update((alp_psa_norma))
+            okno['bilirubina-norma'].update((bilirubina_psa_norma))
+            okno['ggt-norma'].update((ggt_psa_norma))
+            okno['ldh-norma'].update((ldh_psa_norma))
+            okno['cholesterol-norma'].update((cholesterol_psa_norma))
+            okno['triglicerydy-norma'].update((triglicerydy_psa_norma))
+            okno['kw-zolt-norma'].update((kw_zolt_psa_norma))
+            okno['bialko-norma'].update((białko_psa_norma))
+            okno['albuminy-norma'].update(albuminy_psa_norma)
             okno['glukoza-norma'].update((glukoza_psa_norma))
+            okno['fruktozamina-norma'].update((fruktozamina_psa_norma))
+            okno['mocznik-norma'].update((mocznik_psa_norma))
+            okno['kreatynina-norma'].update((kreatynina_psa_norma))
+            okno['kinaza-norma'].update((kinaza_psa_norma))
             okno['amylaza-norma'].update((amylaza_psa_norma))
-            okno['lipaza-norma'].update(lipaza_psa_norma)
-            okno['sod-norma'].update((sod_psa_norma))
+            okno['lipaza-norma'].update((lipaza_psa_norma))
+            okno['wapn-norma'].update((wapn_psa_norma))
+            okno['fosfor-norma'].update((fosfor_psa_norma))
+            okno['magnez-norma'].update((magnez_psa_norma))
+            okno['zelazo-norma'].update((zelazo_psa_norma))
             okno['potas-norma'].update((potas_psa_norma))
-            okno['wbc-norma'].update((wbc_psa_norma))
-            okno['rbc-norma'].update((rbc_psa_norma))
-            okno['hgb-norma'].update((hgb_psa_norma))
-            okno['hct-norma'].update((hct_psa_norma))
-            okno['plt-norma'].update((plt_psa_norma))
+            okno['sod-norma'].update((sod_psa_norma))
+            okno['chlorki-norma'].update((chlorki_psa_norma))
         if values['animal-type']=='Kot':
-            okno['normy-kreatynina'].update((kreatynina_kot_norma))
-            okno['normy-mocznik'].update((mocznik_kot_norma))
-            okno['normy-fosfor'].update((fosfor_kot_norma))
-            okno['alat-norma'].update((alat_kot_norma))
-            okno['aspat-norma'].update((aspat_kot_norma))
-            okno['bialko-norma'].update((białko_kot_norma))
-            okno['bilirubina-norma'].update((bilirubina_kot_norma))
+            okno['ast-norma'].update((ast_kot_norma))
+            okno['alt-norma'].update((alt_kot_norma))
             okno['alp-norma'].update((alp_kot_norma))
+            okno['bilirubina-norma'].update((bilirubina_kot_norma))
+            okno['ggt-norma'].update((ggt_kot_norma))
+            okno['ldh-norma'].update((ldh_kot_norma))
+            okno['cholesterol-norma'].update((cholesterol_kot_norma))
+            okno['triglicerydy-norma'].update((triglicerydy_kot_norma))
+            okno['kw-zolt-norma'].update((kw_zolt_kot_norma))
+            okno['bialko-norma'].update((białko_kot_norma))
+            okno['albuminy-norma'].update(albuminy_kot_norma)
             okno['glukoza-norma'].update((glukoza_kot_norma))
+            okno['fruktozamina-norma'].update((fruktozamina_kot_norma))
+            okno['mocznik-norma'].update((mocznik_kot_norma))
+            okno['kreatynina-norma'].update((kreatynina_kot_norma))
+            okno['kinaza-norma'].update((kinaza_kot_norma))
             okno['amylaza-norma'].update((amylaza_kot_norma))
             okno['lipaza-norma'].update((lipaza_kot_norma))
-            okno['sod-norma'].update((sod_kot_norma))
+            okno['wapn-norma'].update((wapn_kot_norma))
+            okno['fosfor-norma'].update((fosfor_kot_norma))
+            okno['magnez-norma'].update((magnez_kot_norma))
+            okno['zelazo-norma'].update((zelazo_kot_norma))
             okno['potas-norma'].update((potas_kot_norma))
-            okno['wbc-norma'].update((wbc_kot_norma))
-            okno['rbc-norma'].update((rbc_kot_norma))
-            okno['hgb-norma'].update((hgb_kot_norma))
-            okno['hct-norma'].update((hct_kot_norma))
-            okno['plt-norma'].update((plt_kot_norma))
+            okno['sod-norma'].update((sod_kot_norma))
+            okno['chlorki-norma'].update((chlorki_kot_norma))
         
         if event == 'Do PDF':
             
             file_name = f'{values["owner"]}_{values["pet-name"]}_{cur_date.year}{cur_date.month}{cur_date.day}{cur_date.hour}{cur_date.minute}'
             complete_filename = os.path.join(save_location,file_name)
             report_date = f'{cur_date.year}-{cur_date.month}-{cur_date.day}'
+            to_open = complete_filename+'.pdf'
             
-            kreatynina_wynik = values['kreatynina-wynik'].replace(',','.')
-            if kreatynina_wynik!='' and kreatynina_wynik[0] and kreatynina_wynik[-1] in ('0123456789.'):
+            for x in range(len(badania)):
+                badania[x] = values[f'{badania_odw[x].lower()}-wynik'].replace(',','.')
+                if badania[x]!='' and badania[x][0] and badania[x][-1] in ('0123456789.'):
                 
-                kreatynina_wynik = float(kreatynina_wynik)
+                    badania[x] = float(badania[x])
                
-            elif kreatynina_wynik!='' and kreatynina_wynik[0] and kreatynina_wynik[-1] not in ('0123456789.'):
-                sg.Popup('Błędne dane KREATYNINA', keep_on_top=True)
-                okno['kreatynina-wynik'].update('')
-            elif kreatynina_wynik=='':
-                pass
+                elif badania[x]!='' and badania[x][0] and badania[x][-1] not in ('0123456789.'):
+                    sg.Popup(f'Błędne dane {badania_odw[x]}', keep_on_top=True)
+                    okno[f'{badania_odw[x]}-wynik'].update('')
+                elif badania[x]=='':
+                    pass
 
-            mocznik_wynik = values['mocznik-wynik'].replace(',','.')
-            if mocznik_wynik!='' and mocznik_wynik[0] and mocznik_wynik[-1] in ('0123456789.'):
-                mocznik_wynik = float(mocznik_wynik)
-            elif mocznik_wynik!='' and mocznik_wynik[0] and mocznik_wynik[-1] not in ('0123456789.'):
-                sg.Popup('Błędne dane MOCZNIK', keep_on_top=True)
-            elif mocznik_wynik=='':
-                pass
+
             
-
-            fosfor_wynik = values['fosfor-wynik'].replace(',','.')
-            if fosfor_wynik!='' and fosfor_wynik[0] and fosfor_wynik[-1] in ('0123456789.'):
-                fosfor_wynik = float(fosfor_wynik)
-            elif fosfor_wynik!=''and fosfor_wynik[0] and fosfor_wynik[-1] not in ('0123456789.'):
-                sg.Popup('Błędne dane FOSFOR', keep_on_top=True)
-            elif fosfor_wynik=='':
-                pass
-           
-
-            alat_wynik = values['alat-wynik'].replace(',','.')
-            if alat_wynik!='' and alat_wynik[0] and alat_wynik[-1] in ('0123456789.'):
-                alat_wynik=float(alat_wynik)
-            elif alat_wynik!='' and alat_wynik[0] and alat_wynik[-1] not in ('0123456789.'):
-                sg.Popup('Błędne dane ALAT', keep_on_top=True)
-            elif alat_wynik=='':
-                pass
-            
-            aspat_wynik = values['aspat-wynik'].replace(',','.')
-            if aspat_wynik!='' and aspat_wynik[0] and aspat_wynik[-1] in ('0123456789.'):
-                aspat_wynik=float(aspat_wynik)
-            elif aspat_wynik!='' and aspat_wynik[0] and aspat_wynik[-1] in ('0123456789.'):
-                sg.Popup('Błędne dane ASPAT', keep_on_top=True)
-            elif aspat_wynik=='':
-                pass
-
-            bialko_wynik = values['bialko-wynik'].replace(',','.')
-            if bialko_wynik!='' and bialko_wynik[0] and bialko_wynik[-1] in ('0123456789.'):
-                bialko_wynik=float(bialko_wynik)
-            elif bialko_wynik!='' and bialko_wynik[0] and bialko_wynik[-1] not in ('0123456789.'):
-                sg.Popup('Błędne dane BIAŁKO', keep_on_top=True)
-            elif bialko_wynik=='':
-                pass
-
-            bilirubina_wynik = values['bilirubina-wynik'].replace(',','.')
-            if bilirubina_wynik!='' and bilirubina_wynik[0] and bilirubina_wynik[-1]in ('0123456789.'):
-                bilirubina_wynik=float(bilirubina_wynik)
-            elif bilirubina_wynik!='' and bilirubina_wynik[0] and bilirubina_wynik[-1] not in ('0123456789.'):
-                sg.Popup('Błędne dane BILIRUBINA', keep_on_top=True)
-            elif bilirubina_wynik=='':
-                pass
-
-            alp_wynik = values['alp-wynik'].replace(',','.')
-            if alp_wynik!='' and alp_wynik[0] and alp_wynik[-1] in ('0123456789.'):
-                alp_wynik=float(alp_wynik)
-            elif alp_wynik!='' and alp_wynik[0] and alp_wynik[-1]not in ('0123456789.'):
-                sg.Popup('Błędne dane ALP', keep_on_top=True)
-            elif alp_wynik=='':
-                pass
-
-            glukoza_wynik = values['glukoza-wynik'].replace(',','.')
-            if glukoza_wynik!='' and glukoza_wynik[0] and glukoza_wynik[-1] in ('0123456789.'):
-                glukoza_wynik=float(glukoza_wynik)
-            elif glukoza_wynik!='' and glukoza_wynik[0] and glukoza_wynik[-1] not in ('0123456789.'):
-                sg.Popup('Błędne dane GLUKOZY', keep_on_top=True)
-            elif glukoza_wynik=='':
-                pass
-
-            amylaza_wynik = values['amylaza-wynik'].replace(',','.')
-            if amylaza_wynik!='' and amylaza_wynik[0] and amylaza_wynik[-1] in ('0123456789.'):
-                amylaza_wynik=float(amylaza_wynik)
-            elif amylaza_wynik!='' and amylaza_wynik[0] and amylaza_wynik[-1] not in ('0123456789.'):
-                sg.Popup('Błędne dane AMYLAZA', keep_on_top=True)
-            elif amylaza_wynik=='':
-                pass
-
-            lipaza_wynik = values['lipaza-wynik'].replace(',','.')
-            if lipaza_wynik!='' and lipaza_wynik[0] and lipaza_wynik[-1] in ('0123456789.'):
-                lipaza_wynik=float(lipaza_wynik)
-            elif lipaza_wynik!='' and lipaza_wynik[0] and lipaza_wynik[-1] not in ('0123456789.'):
-                sg.Popup('Błędne dane LIPAZA', keep_on_top=True)
-            elif lipaza_wynik=='':
-                pass
-
-            sod_wynik = values['sod-wynik'].replace(',','.')
-            if sod_wynik!='' and sod_wynik[0] and sod_wynik[-1] in ('0123456789.'):
-                sod_wynik=float(sod_wynik)
-            elif sod_wynik!='' and sod_wynik[0] and sod_wynik[-1] not in ('0123456789.'):
-                sg.Popup('Błędne dane SÓD', keep_on_top=True)
-            elif sod_wynik=='':
-                pass
-
-            potas_wynik = values['potas-wynik'].replace(',','.')
-            if potas_wynik!='' and potas_wynik[0] and potas_wynik[-1] in ('0123456789.'):
-                potas_wynik=float(potas_wynik)
-            elif potas_wynik!='' and potas_wynik[0] and potas_wynik[-1] not in ('0123456789.'):
-                sg.Popup('Błędne dane POTAS', keep_on_top=True)
-            elif potas_wynik=='':
-                pass
-
-            wbc_wynik = values['potas-wynik'].replace(',','.')
-            if wbc_wynik!='' and wbc_wynik[0] and wbc_wynik[-1] in ('0123456789.'):
-                wbc_wynik = float(wbc_wynik)
-            elif wbc_wynik!='' and wbc_wynik[0] and wbc_wynik[-1] not in ('0123456789.'):
-                sg.Popup('Błędne dane WBC', keep_on_top=True)
-            elif wbc_wynik=='':
-                pass
-
-            rbc_wynik = values['rbc-wynik'].replace(',','.')
-            if rbc_wynik!='' and rbc_wynik[0] and rbc_wynik[-1] in ('0123456789.'):
-                rbc_wynik=float(rbc_wynik)
-            elif rbc_wynik!='' and rbc_wynik[0] and rbc_wynik[-1] in ('0123456789.'):
-                sg.Popup('Błędne dane WBC', keep_on_top=True)
-            elif rbc_wynik=='':
-                pass
-
-            hgb_wynik = values['hgb-wynik'].replace(',','.')
-            if hgb_wynik!='' and hgb_wynik[0] and hgb_wynik[-1] in ('0123456789.'):
-                hgb_wynik=float(hgb_wynik)
-            elif hgb_wynik!='' and hgb_wynik[0] and hgb_wynik[-1] in ('0123456789.'):
-                sg.Popup('Błędne dane WBC', keep_on_top=True)
-            elif hgb_wynik=='':
-                pass
-
-            hct_wynik = values['hct-wynik'].replace(',','.')
-            if hct_wynik!='' and hct_wynik[0] and hct_wynik[-1] in ('0123456789.'):
-                hct_wynik=float(hct_wynik)
-            elif hct_wynik!='' and hct_wynik[0] and hct_wynik[-1] in ('0123456789.'):
-                sg.Popup('Błędne dane WBC', keep_on_top=True)
-            elif hct_wynik=='':
-                pass
-
-            plt_wynik = values['plt-wynik'].replace(',','.')
-            if plt_wynik!='' and plt_wynik[0] and plt_wynik[-1] in ('0123456789.'):
-                plt_wynik = float(plt_wynik)
-            elif plt_wynik!='' and plt_wynik[0] and plt_wynik[-1] in ('0123456789.'):
-                sg.Popup('Błędne dane WBC', keep_on_top=True)
-            elif plt_wynik=='':
-                pass
             
         
-            raport_pdf = diag_canvas(complete_filename,report_date,values['order-no'],values['animal-type'],values['owner'],values['pet-name'],kreatynina_wynik,
-            mocznik_wynik, fosfor_wynik, alat_wynik, aspat_wynik, bialko_wynik,bilirubina_wynik, alp_wynik, glukoza_wynik, amylaza_wynik, lipaza_wynik,
-            sod_wynik, potas_wynik, wbc_wynik, rbc_wynik, hgb_wynik, hct_wynik, plt_wynik, values['uwagi'])
+            raport_pdf = diag_canvas(complete_filename,report_date,values['order-no'],values['animal-type'],values['owner'],values['pet-name'],
+            badania[0], 
+            badania[1],
+            badania[2], 
+            badania[3], 
+            badania[4],
+            badania[5],
+            badania[6],
+            badania[7],
+            badania[8],
+            badania[9],
+            badania[10],
+            badania[11],
+            badania[12],
+            badania[13],
+            badania[14], 
+            badania[15], 
+            badania[16],
+            badania[17], 
+            badania[18],
+            badania[19],
+            badania[20], 
+            badania[21], 
+            badania[22], 
+            badania[23], 
+            badania[24],
+            values['uwagi'])
+
+            subprocess.Popen(to_open, shell=True)
+
         elif event=='Wyczyść':
             okno['order-no'].update('')
-            okno['owner'].update
+            okno['owner'].update('')
             okno['animal-type'].update('Pies')
             okno['pet-name'].update('')
-            okno['kreatynina-wynik'].update('')
-            okno['mocznik-wynik'].update('')
-            okno['fosfor-wynik'].update('')
-            okno['alat-wynik'].update('')
-            okno['aspat-wynik'].update('')
-            okno['bialko-wynik'].update('')
-            okno['bilirubina-wynik'].update('')
+            okno['ast-wynik'].update('')
+            okno['alt-wynik'].update('')
             okno['alp-wynik'].update('')
+            okno['bilirubina-wynik'].update('')
+            okno['ggt-wynik'].update('')
+            okno['ldh-wynik'].update('')
+            okno['cholesterol-wynik'].update('')
+            okno['triglicerydy-wynik'].update('')
+            okno['kw-zolt-wynik'].update('')
+            okno['bialko-wynik'].update('')
+            okno['albuminy-wynik'].update('')
             okno['glukoza-wynik'].update('')
+            okno['fruktozamina-wynik'].update('')
+            okno['mocznik-wynik'].update('')
+            okno['kreatynina-wynik'].update('')
+            okno['kinaza-wynik'].update('')
             okno['amylaza-wynik'].update('')
             okno['lipaza-wynik'].update('')
-            okno['sod-wynik'].update('')
+            okno['wapn-wynik'].update('')
+            okno['fosfor-wynik'].update('')
+            okno['magnez-wynik'].update('')
+            okno['zelazo-wynik'].update('')
             okno['potas-wynik'].update('')
-            okno['wbc-wynik'].update('')
-            okno['rbc-wynik'].update('')
-            okno['hgb-wynik'].update('')
-            okno['hct-wynik'].update('')
-            okno['plt-wynik'].update('')
+            okno['sod-wynik'].update('')
+            okno['chlorki-wynik'].update('')
+            okno['uwagi'].update('')
 
 
         
