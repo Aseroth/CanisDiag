@@ -487,4 +487,4 @@ class diag_canvas():
 
 
 
-test = diag_canvas('test','2022-10-10','22222','Pies','Bartłomiej Nowak','Bella','',6,6,6,6,'',6,6,6,6,6,6,6,6,6,6,6,6,)
+
